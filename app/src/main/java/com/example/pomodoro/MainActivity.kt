@@ -9,7 +9,7 @@ import android.os.Bundle
 class MainActivity : AppCompatActivity() {
     private lateinit var timer: Timer
     private lateinit var binding: ActivityMainBinding
-    private var count = 3
+    private var count = 1
 
     @SuppressLint("SetTextI18n", "ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,14 +38,11 @@ class MainActivity : AppCompatActivity() {
             binding.buttonApp.isEnabled = false
             binding.stopButton.isEnabled = true
             if (count % 2 == 0 && count != 4) {
-                binding.txtTittle.text = "BREAK"
                 timer.start(5 * 60 * 1000)
             } else if (count == 4) {
-                binding.txtTittle.text = "LONG BREAK"
-                timer.start(1 * 60 * 1000)
+                timer.start(15 * 60 * 1000)
             } else {
-                binding.txtTittle.text = "POMO TIMER"
-                timer.start(1 * 60 * 1000)
+                timer.start(25 * 60 * 1000)
             }
         }
 
@@ -70,11 +67,22 @@ class MainActivity : AppCompatActivity() {
         if(count % 2 == 0) {
             binding.root.setBackgroundColor(Color.parseColor("#c76d6d"))
             binding.txtTime.setBackgroundColor(Color.parseColor("#cd7c7c"))
+            binding.txtTime.text = "25:00"
+            binding.txtTittle.text = "POMO TIMER"
         } else if (count == 5) {
             binding.root.setBackgroundColor(Color.parseColor("#BAD7E9"))
             binding.txtTime.setBackgroundColor(Color.parseColor("#2B3467"))
+            binding.txtTime.text = "05:00"
+            binding.txtTittle.text = "BREAK"
             count = 1
         } else {
+            if (count == 3) {
+                binding.txtTime.text = "15:00"
+                binding.txtTittle.text = "LONG BREAK"
+            } else {
+                binding.txtTittle.text = "BREAK"
+                binding.txtTime.text = "05:00"
+            }
             binding.root.setBackgroundColor(Color.parseColor("#BAD7E9"))
             binding.txtTime.setBackgroundColor(Color.parseColor("#2B3467"))
         }
