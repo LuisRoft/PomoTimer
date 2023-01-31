@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Pomo Doro</string>
     <string name="title">POMO TIMER</string>
+    <string name="timer">25:00</string>
+    <string name="breakTimer">05:00</string>
+    <string name="breakButton">Break!</string>
+    <string name="StartButton">Start!</string>
+    <string name="breakTimeTitle">Its time to break :)</string>
+    <string name="stopButton">Stop</string>
 </resources>
