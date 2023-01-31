@@ -48,12 +48,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.stopButton.setOnClickListener {
             binding.stopButton.isEnabled = false
-            binding.buttonApp.isEnabled = false
             binding.resumeButton.isEnabled = true
+            binding.buttonApp.isEnabled = true
             timer.stop()
         }
 
         binding.resumeButton.setOnClickListener {
+            binding.buttonApp.isEnabled = false
             binding.stopButton.isEnabled = true
             binding.resumeButton.isEnabled = false
             timer.resume()
