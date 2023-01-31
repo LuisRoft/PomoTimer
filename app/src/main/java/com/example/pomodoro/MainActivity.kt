@@ -1,6 +1,7 @@
 package com.example.pomodoro
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pomodoro.databinding.ActivityMainBinding
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.os.Bundle
 class MainActivity : AppCompatActivity() {
     private lateinit var timer: Timer
     private lateinit var binding: ActivityMainBinding
+    private var count = 3
 
     @SuppressLint("SetTextI18n", "ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,45 +17,71 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var count = 0;
 
 
-        timer = Timer { remainingTime ->
-            runOnUiThread {
-                val minutes = (remainingTime / 1000 / 60).toString().padStart(2, '0')
-                val seconds = (remainingTime / 1000 % 60).toString().padStart(2, '0')
-                binding.txtTime.text = "$minutes: $seconds"
-            }
-        }
+        timer = Timer(
+            { remainingTime ->
+                runOnUiThread {
+                    val minutes = (remainingTime / 1000 / 60).toString().padStart(2, '0')
+                    val seconds = (remainingTime / 1000 % 60).toString().padStart(2, '0')
+                    binding.txtTime.text = "$minutes:$seconds"
+                }
+            }, { onTimerFinished() }
+        )
+
+        binding.resumeButton.isEnabled = false
+        binding.stopButton.isEnabled = false
 
 
         binding.buttonApp.setOnClickListener {
+            binding.resumeButton.isEnabled = false
             binding.buttonApp.isEnabled = false
             binding.stopButton.isEnabled = true
-            if (count % 2 == 0 && count != 0) {
+            if (count % 2 == 0 && count != 4) {
+                binding.txtTittle.text = "BREAK"
+                timer.start(5 * 60 * 1000)
+            } else if (count == 4) {
+                binding.txtTittle.text = "LONG BREAK"
                 timer.start(1 * 60 * 1000)
-                binding.txtCount.text = "$count/4"
-                binding.root.setBackgroundColor(R.color.red)
-                binding.txtTime.setBackgroundColor(R.color.light_red)
             } else {
-                timer.start(2 * 60 * 1000)
-                binding.txtCount.text = "$count/4"
-                binding.root.setBackgroundColor(R.color.blue)
-                binding.txtTime.setBackgroundColor(R.color.light_blue)
+                binding.txtTittle.text = "POMO TIMER"
+                timer.start(1 * 60 * 1000)
             }
-            count++
         }
 
         binding.stopButton.setOnClickListener {
             binding.stopButton.isEnabled = false
-            binding.buttonApp.isEnabled = true
+            binding.buttonApp.isEnabled = false
+            binding.resumeButton.isEnabled = true
             timer.stop()
         }
 
+        binding.resumeButton.setOnClickListener {
+            binding.resumeButton.isEnabled = false
+            binding.stopButton.isEnabled = true
+            binding.buttonApp.isEnabled = false
+            timer.resume()
+        }
+
     }
 
+    @SuppressLint("ResourceAsColor", "SetTextI18n")
     private fun onTimerFinished() {
-            runOnUiThread {
+        if(count % 2 == 0) {
+            binding.root.setBackgroundColor(Color.parseColor("#c76d6d"))
+            binding.txtTime.setBackgroundColor(Color.parseColor("#cd7c7c"))
+        } else if (count == 5) {
+            binding.root.setBackgroundColor(Color.parseColor("#BAD7E9"))
+            binding.txtTime.setBackgroundColor(Color.parseColor("#2B3467"))
+            count = 1
+        } else {
+            binding.root.setBackgroundColor(Color.parseColor("#BAD7E9"))
+            binding.txtTime.setBackgroundColor(Color.parseColor("#2B3467"))
         }
+        binding.txtCount.text = "${count}/4"
+        count++
+        binding.stopButton.isEnabled = false
+        binding.buttonApp.isEnabled = true
     }
 }
+

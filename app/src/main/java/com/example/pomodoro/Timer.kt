@@ -2,7 +2,7 @@ package com.example.pomodoro
 
 import android.os.CountDownTimer
 
-class Timer(private val updateUi: (Long) -> Unit) {
+class Timer(private val updateUi: (Long) -> Unit, private val timerFinished: () -> Unit) {
     private var timer: CountDownTimer? = null
     private var isRunning = false
     private var remainingTime: Long = 0
@@ -18,6 +18,7 @@ class Timer(private val updateUi: (Long) -> Unit) {
 
             override fun onFinish() {
                 isRunning = false
+                timerFinished()
             }
         }.start()
 
