@@ -17,6 +17,9 @@ https://github.com/LuisRoft/PomoTimer.git
 3. Paste:
 ![image](https://user-images.githubusercontent.com/91089863/201412440-d371be92-7e9b-411c-b6ab-cd58eeff2178.png)
 
-Download APK: https://github.com/LuisRoft/PomoTimer/releases/tag/V1.4
+📲 Download APK: https://github.com/LuisRoft/PomoTimer/releases/tag/V1.4 
+
+📄 Requirements document: https://drive.google.com/file/d/1N16Su3S8PYtOY9yNj06SDfXHVlQnMjQY/view?usp=sharing 
 
 And ready 🥳, enjoy!
+
