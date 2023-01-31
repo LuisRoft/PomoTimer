@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             } else if (count == 4) {
                 timer.start(15 * 60 * 1000)
             } else {
-                timer.start(1 * 60 * 1000)
+                timer.start(25 * 60 * 1000)
             }
         }
 
