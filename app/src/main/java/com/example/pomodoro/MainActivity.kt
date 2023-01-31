@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             } else if (count == 4) {
                 timer.start(15 * 60 * 1000)
             } else {
-                timer.start(25 * 60 * 1000)
+                timer.start(1 * 60 * 1000)
             }
         }
 
@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         binding.resumeButton.setOnClickListener {
             binding.resumeButton.isEnabled = false
             binding.stopButton.isEnabled = true
-            binding.buttonApp.isEnabled = false
             timer.resume()
         }
 
